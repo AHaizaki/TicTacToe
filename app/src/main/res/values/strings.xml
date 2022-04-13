@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TicTacToe</string>
+    <string name="una_casilla_de_tres_en_raya">Una casilla de tres en raya</string>
+    <string name="empezar_de_nuevo">Empezar de nuevo</string>
+    <string-array name="Difficulty">
+        <item>Facil</item>
+        <item>Normal</item>
+        <item>Imposible</item>
+        <item>Jugar contra un amigo</item>
+    </string-array>
+</resources>

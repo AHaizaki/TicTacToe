@@ -190,21 +190,21 @@ public class MainActivity extends AppCompatActivity {
         return emptyCells == 0;
     }
 
-    int bestChoice(int cellNumber,int argTurn, int alpha, int beta) {
+    int bestChoice(int cellNumber,int argTurn,int depth, int alpha, int beta) {
         int score;
         if (detectWin(cellNumber)) {
-            if(spinnerPosition < 2) {
+            if(spinnerPosition == 0) {
                 return argTurn == 1 ? 1 : -1;
             } else {
                 return argTurn == 1 ? -1 : 1;
             }
-        } else if (hasEmptyCell()) {
+        } else if (hasEmptyCell() || depth == 0) {
             return 0;
         } else {
             for (int i = 0; i < cells.length; i++) {
                 if (cells[i].isEmpty()) {
-                    cells[i] = playerIcons[spinnerPosition == 0 ? argTurn == 1 ? 0 : 1 : argTurn];
-                    score = bestChoice(i,argTurn == 1 ? 0 : 1, alpha, beta);
+                    cells[i] = playerIcons[spinnerPosition < 1 ? argTurn == 1 ? 0 : 1 : argTurn];
+                    score = bestChoice(i,argTurn == 1 ? 0 : 1,depth - 1, alpha, beta);
                     cells[i] = "";
                     if (argTurn == 1) {
                         alpha = Math.max(alpha, score);
@@ -235,10 +235,11 @@ public class MainActivity extends AppCompatActivity {
         int best = 0;
         int bestScore = -1000;
         int score;
+        int depth = (spinnerPosition == 1) ? 1 : 9;
         for (int i = 0; i < cells.length; i++) {
             if (cells[i].isEmpty()) {
                 cells[i] = playerIcons[1];
-                score = bestChoice(i,0, bestScore, 1000);
+                score = bestChoice(i,0,depth, bestScore, 1000);
                 if (score > bestScore) {
                     bestScore = score;
                     best = i;
